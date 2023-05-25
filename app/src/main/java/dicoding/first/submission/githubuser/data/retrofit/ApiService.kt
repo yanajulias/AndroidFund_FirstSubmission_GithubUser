@@ -1,4 +1,8 @@
 package dicoding.first.submission.githubuser.data.retrofit
 
-interface ApiService {
+import retrofit2.http.GET
+import retrofit2.http.Headers
+
+class ApiService {
+
 }
