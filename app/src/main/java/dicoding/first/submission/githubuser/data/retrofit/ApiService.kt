@@ -8,11 +8,12 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface ApiService {
 
     @GET("search/users")
-    fun getListUser(@Query("q") q: String): Call<SearchResponse>
+    fun getListUser(@QueryMap() map: Map<String, Any>): Call<SearchResponse>
 
     @GET("users/{username}")
     fun getDetailUser(@Path("username") username: String): Call<DetailUserResponse>
