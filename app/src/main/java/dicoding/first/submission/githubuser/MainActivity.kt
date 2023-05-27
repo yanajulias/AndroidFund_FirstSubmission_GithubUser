@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListUser(listUser: MutableList<ItemsItem>) {
-        val adapter = UserListAdapter()
+        val adapter = adapter
         adapter.setData(listUser)
         activityMainBinding.rvUser.adapter = adapter
     }

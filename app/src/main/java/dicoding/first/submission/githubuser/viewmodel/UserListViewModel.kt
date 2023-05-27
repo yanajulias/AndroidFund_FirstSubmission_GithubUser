@@ -1,13 +1,10 @@
 package dicoding.first.submission.githubuser.viewmodel
 
-import android.content.ClipData.Item
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import dicoding.first.submission.githubuser.MainActivity
 import dicoding.first.submission.githubuser.data.response.ItemsItem
-import dicoding.first.submission.githubuser.data.response.ListResponse
 import dicoding.first.submission.githubuser.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback

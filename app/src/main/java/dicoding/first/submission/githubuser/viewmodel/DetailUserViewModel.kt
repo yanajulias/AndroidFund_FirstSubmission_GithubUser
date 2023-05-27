@@ -21,20 +21,16 @@ class DetailUserViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    init {
-        detailUser()
-    }
-
-    private fun detailUser(username: String) {
+    fun getDetailUser(username: String) {
         _isLoading.postValue(true)
         val client = ApiConfig.getApiService().getDetailUser(username)
-        client.enqueue(object : Callback<DetailUserResponse>{
+        client.enqueue(object : Callback<DetailUserResponse> {
             override fun onResponse(
                 call: Call<DetailUserResponse>,
                 response: Response<DetailUserResponse>
             ) {
                 _isLoading.postValue(false)
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     _userDetail.postValue(response.body())
                 } else {
                     Log.e(TAG, "onFailure : ${response.message()}")
