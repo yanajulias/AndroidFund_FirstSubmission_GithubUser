@@ -1,5 +1,6 @@
 package dicoding.first.submission.githubuser
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +10,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dicoding.first.submission.githubuser.adapter.UserListAdapter
 import dicoding.first.submission.githubuser.data.response.ItemsItem
 import dicoding.first.submission.githubuser.databinding.ActivityMainBinding
+import dicoding.first.submission.githubuser.ui.DetailUserActivity
 import dicoding.first.submission.githubuser.viewmodel.UserListViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var activityMainBinding: ActivityMainBinding
     private val viewModel by viewModels<UserListViewModel>()
+    private val adapter by lazy {
+        UserListAdapter{
+            Intent(this, DetailUserActivity::class.java).apply {
+                putExtra("username", it.login)
+                startActivity(this)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
