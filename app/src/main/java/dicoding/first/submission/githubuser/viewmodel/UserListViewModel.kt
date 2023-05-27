@@ -36,7 +36,7 @@ class UserListViewModel : ViewModel() {
             override fun onResponse(call: Call<MutableList<ItemsItem>>, response: Response<MutableList<ItemsItem>>) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _userList.value = response.body()
+                    _userList.postValue(response.body())
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
