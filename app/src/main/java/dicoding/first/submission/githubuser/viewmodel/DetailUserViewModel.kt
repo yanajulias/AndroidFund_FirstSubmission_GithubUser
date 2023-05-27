@@ -5,6 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dicoding.first.submission.githubuser.data.response.DetailUserResponse
+import dicoding.first.submission.githubuser.data.response.FollowersResponse
+import dicoding.first.submission.githubuser.data.response.FollowersResponseItem
+import dicoding.first.submission.githubuser.data.response.FollowingResponse
+import dicoding.first.submission.githubuser.data.response.FollowingResponseItem
 import dicoding.first.submission.githubuser.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +24,12 @@ class DetailUserViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _userFollowers = MutableLiveData<List<FollowersResponseItem>>()
+    val userFollowers: LiveData<List<FollowersResponseItem>> = _userFollowers
+
+    private val _userFollowing = MutableLiveData<List<FollowingResponseItem>>()
+    val userFollowing: LiveData<List<FollowingResponseItem>> = _userFollowing
 
     fun getDetailUser(username: String) {
         _isLoading.postValue(true)
@@ -39,6 +49,54 @@ class DetailUserViewModel : ViewModel() {
 
             override fun onFailure(call: Call<DetailUserResponse>, t: Throwable) {
                 Log.e(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+
+    fun getFollowers(username: String) {
+        _isLoading.postValue(true)
+        val client = ApiConfig.getApiService().getFollowersUser(username)
+        client.enqueue(object : Callback<List<FollowersResponseItem>> {
+            override fun onResponse(
+                call: Call<List<FollowersResponseItem>>,
+                response: Response<List<FollowersResponseItem>>
+            ) {
+                _isLoading.postValue(false)
+                if (response.isSuccessful) {
+                    _userFollowers.postValue(response.body())
+                } else {
+                    Log.e(TAG, "onFailure:${response.message()}")
+                }
+
+            }
+
+            override fun onFailure(call: Call<List<FollowersResponseItem>>, t: Throwable) {
+                Log.e(TAG, "onFailure:${t.message}")
+            }
+
+        })
+    }
+
+    fun getFollowing(username: String) {
+        _isLoading.postValue(true)
+        val client = ApiConfig.getApiService().getFollowingUser(username)
+        client.enqueue(object : Callback<List<FollowingResponseItem>> {
+            override fun onResponse(
+                call: Call<List<FollowingResponseItem>>,
+                response: Response<List<FollowingResponseItem>>
+            ) {
+                _isLoading.postValue(false)
+                if (response.isSuccessful) {
+                    _userFollowing.postValue(response.body())
+                } else {
+                    Log.e(TAG, "onFailure:${response.message()}")
+                }
+
+            }
+
+            override fun onFailure(call: Call<List<FollowingResponseItem>>, t: Throwable) {
+                Log.e(TAG, "onFailure:${t.message}")
             }
 
         })
