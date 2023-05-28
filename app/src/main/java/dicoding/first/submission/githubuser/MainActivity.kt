@@ -3,7 +3,6 @@ package dicoding.first.submission.githubuser
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,19 +32,10 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-//        activityMainBinding.apply {
-//            rvUser.layoutManager = LinearLayoutManager(applicationContext)
-//            rvUser.setHasFixedSize(true)
-//            rvUser.adapter = adapter
-//
-//        }
-//        activityMainBinding.rvUser.layoutManager = LinearLayoutManager(this)
-//        activityMainBinding.rvUser.setHasFixedSize(true)
-//        activityMainBinding.rvUser.adapter = adapter
-
-        val layoutManager = LinearLayoutManager(this)
-        activityMainBinding.rvUser.layoutManager = layoutManager
-        activityMainBinding.rvUser.setHasFixedSize(true)
+        activityMainBinding.apply {
+            rvUser.layoutManager = LinearLayoutManager(applicationContext)
+            rvUser.setHasFixedSize(true)
+        }
 
         viewModel.isLoading.observe(this) {
             showLoading(it)
