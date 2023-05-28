@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">GithubUser</string>
     <string name="desc_image_user">Image User</string>
-    <string name="username">Username</string>
     <string name="desc_detail_image_user">Image Detail User</string>
     <string name="tab_followers">Followers</string>
     <string name="tab_following">Following</string>
+    <string name="count_followers">%d Followers</string>
+    <string name="count_following">%d Followers</string>
+    <string name="username">\u0040%s</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
