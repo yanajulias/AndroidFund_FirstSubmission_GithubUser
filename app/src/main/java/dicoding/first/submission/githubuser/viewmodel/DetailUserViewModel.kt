@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dicoding.first.submission.githubuser.data.response.DetailUserResponse
-import dicoding.first.submission.githubuser.data.response.FollowersResponse
-import dicoding.first.submission.githubuser.data.response.FollowersResponseItem
-import dicoding.first.submission.githubuser.data.response.FollowingResponse
-import dicoding.first.submission.githubuser.data.response.FollowingResponseItem
+import dicoding.first.submission.githubuser.data.response.ItemsItem
 import dicoding.first.submission.githubuser.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,11 +22,11 @@ class DetailUserViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _userFollowers = MutableLiveData<List<FollowersResponseItem>>()
-    val userFollowers: LiveData<List<FollowersResponseItem>> = _userFollowers
+    private val _userFollowers = MutableLiveData<MutableList<ItemsItem>>()
+    val userFollowers: LiveData<MutableList<ItemsItem>> = _userFollowers
 
-    private val _userFollowing = MutableLiveData<List<FollowingResponseItem>>()
-    val userFollowing: LiveData<List<FollowingResponseItem>> = _userFollowing
+    private val _userFollowing = MutableLiveData<MutableList<ItemsItem>>()
+    val userFollowing: LiveData<MutableList<ItemsItem>> = _userFollowing
 
     fun getDetailUser(username: String) {
         _isLoading.postValue(true)
@@ -57,10 +54,10 @@ class DetailUserViewModel : ViewModel() {
     fun getFollowers(username: String) {
         _isLoading.postValue(true)
         val client = ApiConfig.getApiService().getFollowersUser(username)
-        client.enqueue(object : Callback<List<FollowersResponseItem>> {
+        client.enqueue(object : Callback<MutableList<ItemsItem>> {
             override fun onResponse(
-                call: Call<List<FollowersResponseItem>>,
-                response: Response<List<FollowersResponseItem>>
+                call: Call<MutableList<ItemsItem>>,
+                response: Response<MutableList<ItemsItem>>
             ) {
                 _isLoading.postValue(false)
                 if (response.isSuccessful) {
@@ -71,7 +68,7 @@ class DetailUserViewModel : ViewModel() {
 
             }
 
-            override fun onFailure(call: Call<List<FollowersResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<MutableList<ItemsItem>>, t: Throwable) {
                 Log.e(TAG, "onFailure:${t.message}")
             }
 
@@ -81,10 +78,10 @@ class DetailUserViewModel : ViewModel() {
     fun getFollowing(username: String) {
         _isLoading.postValue(true)
         val client = ApiConfig.getApiService().getFollowingUser(username)
-        client.enqueue(object : Callback<List<FollowingResponseItem>> {
+        client.enqueue(object : Callback<MutableList<ItemsItem>> {
             override fun onResponse(
-                call: Call<List<FollowingResponseItem>>,
-                response: Response<List<FollowingResponseItem>>
+                call: Call<MutableList<ItemsItem>>,
+                response: Response<MutableList<ItemsItem>>
             ) {
                 _isLoading.postValue(false)
                 if (response.isSuccessful) {
@@ -95,7 +92,7 @@ class DetailUserViewModel : ViewModel() {
 
             }
 
-            override fun onFailure(call: Call<List<FollowingResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<MutableList<ItemsItem>>, t: Throwable) {
                 Log.e(TAG, "onFailure:${t.message}")
             }
 
