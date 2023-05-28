@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import dicoding.first.submission.githubuser.data.response.ItemsItem
-import dicoding.first.submission.githubuser.data.response.ListResponse
 import dicoding.first.submission.githubuser.databinding.ItemUserBinding
 
-class UserListAdapter(private val data: MutableList<ItemsItem> = mutableListOf()) :
+class UserListAdapter(private val data: MutableList<ItemsItem> = mutableListOf(),
+private val listener: (ItemsItem) -> Unit) :
     RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
 
     fun setData(data: MutableList<ItemsItem>) {
@@ -37,6 +37,9 @@ class UserListAdapter(private val data: MutableList<ItemsItem> = mutableListOf()
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val item = data[position]
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            listener(item)
+        }
     }
 
 }
