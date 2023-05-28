@@ -1,8 +1,6 @@
 package dicoding.first.submission.githubuser.data.retrofit
 
 import dicoding.first.submission.githubuser.data.response.DetailUserResponse
-import dicoding.first.submission.githubuser.data.response.FollowersResponseItem
-import dicoding.first.submission.githubuser.data.response.FollowingResponseItem
 import dicoding.first.submission.githubuser.data.response.ItemsItem
 import retrofit2.Call
 import retrofit2.http.GET
@@ -22,10 +20,10 @@ interface ApiService {
     @GET("users/{username}/followers")
     fun getFollowersUser(
         @Path("username") username: String
-    ): Call<List<FollowersResponseItem>>
+    ): Call<MutableList<ItemsItem>>
 
     @GET("users/{username}/following")
     fun getFollowingUser(
         @Path("username") username: String
-    ): Call<List<FollowingResponseItem>>
+    ): Call<MutableList<ItemsItem>>
 }
