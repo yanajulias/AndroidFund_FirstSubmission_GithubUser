@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             searchView.setupWithSearchBar(searchBar)
             searchView
                 .editText
-                .setOnEditorActionListener { textView, i, keyEvent ->
+                .setOnEditorActionListener { _, _, _ ->
                     val searchText = searchView.text.toString()
                     searchBar.text = searchView.text
                     searchView.hide()
