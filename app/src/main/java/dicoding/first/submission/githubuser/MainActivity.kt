@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dicoding.first.submission.githubuser.adapter.UserListAdapter
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var activityMainBinding: ActivityMainBinding
     private val viewModel by viewModels<UserListViewModel>()
     private val adapter by lazy {
-        UserListAdapter{
+        UserListAdapter {
             Intent(this, DetailUserActivity::class.java).apply {
                 putExtra("username", it.login)
                 startActivity(this)
@@ -37,6 +38,19 @@ class MainActivity : AppCompatActivity() {
             rvUser.setHasFixedSize(true)
         }
 
+        with(activityMainBinding) {
+            searchView.setupWithSearchBar(searchBar)
+            searchView
+                .editText
+                .setOnEditorActionListener { textView, i, keyEvent ->
+                    val searchText = searchView.text.toString()
+                    searchBar.text = searchView.text
+                    searchView.hide()
+                    viewModel.listUsername(query = searchText)
+                    false
+                }
+        }
+
         viewModel.isLoading.observe(this) {
             showLoading(it)
         }
@@ -44,6 +58,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.userList.observe(this) {
             setListUser(it)
         }
+
+        viewModel.listUsername(query = "android")
     }
 
     private fun showLoading(isLoading: Boolean) {
